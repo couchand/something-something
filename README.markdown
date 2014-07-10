@@ -89,7 +89,8 @@ behavior is guessed from the airity of the function, so don't try any
 fancy business with `arguments` here.
 
 The complete callback is called with the `results` collection once
-every iteration is complete.
+every iteration is complete.  If any iteration callsback with an error
+the map immediately fails, calling back with that error.
 
 ### reduce ###
 
@@ -113,7 +114,8 @@ is called for each element in the collection.  Again its behavior is
 assumed based on the airity.  The result is coerced to a Boolean.
 
 The complete callback is called with the filtered `results` once
-every predicate is complete.
+every predicate is complete.  If any predicate callsback with an error
+the filter immediately fails, calling back with that error.
 
 ### any ###
 
