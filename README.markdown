@@ -5,9 +5,9 @@ something something
 
 a little asynchronous functional programming library.
 
-  * why?
-  * how?
-  * what?
+  * [why?](#why)
+  * [how?](#how)
+  * [what?](#what)
 
 why?
 ----
