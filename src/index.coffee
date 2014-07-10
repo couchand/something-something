@@ -5,23 +5,22 @@ isArray = require 'isarray'
 id = (k, v, c) -> v
 collect = (k, v, c) -> if v then c[k]
 
-map = (collection, iterator, complete, convert=id) ->
+accumulator = (collection) ->
+  if isArray collection then [] else {}
+
+each = (collection, iterator, complete, convert) ->
   keys = if isArray collection
     [0...collection.length]
   else
-    Object.keys(collection)
+    Object.keys collection
+
   length = keys.length
   count = 0
-  accumulator = {}
 
-  cb = (key) ->
-    if complete?
-      (value) ->
-        accumulator[key] = convert key, value, collection
-        count += 1
-        complete accumulator if complete and count is length
-    else
-      ->
+  cb = (key) -> (value) ->
+    convert key, value
+    count += 1
+    complete() if complete and count is length
 
   iterate = switch iterator.length
     when 2 then (key, value) ->
@@ -34,7 +33,18 @@ map = (collection, iterator, complete, convert=id) ->
 
   (iterate key, collection[key] for key in keys)
 
+map = (collection, iterator, complete) ->
+  result = accumulator collection
+  each collection, iterator,
+    -> complete result if complete
+    (key, value) ->
+      result[key] = value
+
 filter = (collection, iterator, complete) ->
-  map collection, iterator, complete, collect
+  result = accumulator collection
+  each collection, iterator,
+    -> complete result if complete
+    (key, value) ->
+      result[key] = collection[key] if value
 
 module.exports = {map, filter}
