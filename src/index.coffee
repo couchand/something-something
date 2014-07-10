@@ -68,9 +68,33 @@ filter = (collection, iterator, complete) ->
 
   each collection, iterator, cb, convert
 
+any = (collection, iterator, complete) ->
+  finish = handle complete, no
+  cb = (error) -> finish error
+
+  convert = (key, value) ->
+    if value
+      finish = ->
+      complete(null, yes) if complete
+
+  each collection, iterator, cb, convert
+
+all = (collection, iterator, complete) ->
+  finish = handle complete, yes
+  cb = (error) -> finish error
+
+  convert = (key, value) ->
+    unless value
+      finish = ->
+      complete(null, no) if complete
+
+  each collection, iterator, cb, convert
+
 module.exports = {
   map
   collect: map
   filter
   select: filter
+  any
+  all
 }

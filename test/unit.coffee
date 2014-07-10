@@ -163,10 +163,194 @@ describe 'object', ->
         should.not.exist result
 
   describe 'any', ->
-    it 'something'
+    it 'callsback for each value', (done) ->
+      vals = []
+      addVal = (val, cb) ->
+        vals.push val
+        cb null, no
+
+      __.any test, addVal, (error) ->
+        should.not.exist error
+        vals.should.have.length 3
+        vals.should.have.members [1, 2, 3]
+        done()
+
+    it 'callsback for each key', (done) ->
+      keys = []
+      addKey = (key, val, cb) ->
+        keys.push key
+        cb null, no
+
+      __.any test, addKey, (error) ->
+        should.not.exist error
+        keys.should.have.length 3
+        keys.should.have.members ['foo', 'bar', 'baz']
+        done()
+
+    it 'callsback with the collection', (done) ->
+      colls = []
+      addColl = (key, val, coll, cb) ->
+        colls.push coll
+        cb null, no
+
+      __.any test, addColl, (error) ->
+        should.not.exist error
+        colls.should.have.length 3
+        colls[0].should.equal test
+        colls[1].should.equal test
+        colls[2].should.equal test
+        done()
+
+    it 'throws if iterator signature is wrong', ->
+      (->
+        __.any test, (->), ->
+      ).should.throw /iterator/
+
+    it 'ignores missing complete callback', (done) ->
+      vals = []
+      addVal = (val, cb) ->
+        vals.push val
+        cb()
+
+      __.any test, addVal
+
+      setImmediate ->
+        vals.should.have.length 3
+        vals.should.have.members [1, 2, 3]
+        done()
+
+    it 'callsback immediately on error', ->
+      fail = (val, cb) ->
+        cb 'oh no!'
+
+      __.any test, fail, (error, result) ->
+        should.exist error
+        error.should.equal 'oh no!'
+        should.not.exist result
+
+    it 'returns true if any is true', ->
+      did = no
+      one = (val, cb) ->
+        return cb null, no if did
+        did = yes
+        cb null, yes
+
+      __.any test, one, (error, result) ->
+        should.not.exist error
+        result.should.be.true
+
+    it 'returns false if all are false', ->
+      nope = (val, cb) ->
+        cb null, no
+
+      __.any test, nope, (error, result) ->
+        should.not.exist error
+        result.should.be.false
+
+    it 'short-circuits', ->
+      count = 0
+      yep = (val, cb) ->
+        count += 1
+        cb null, yes
+
+      __.any test, yep, (error, result) ->
+        should.not.exist error
+        count.should.equal 1
 
   describe 'all', ->
-    it 'something'
+    it 'callsback for each value', (done) ->
+      vals = []
+      addVal = (val, cb) ->
+        vals.push val
+        cb null, yes
+
+      __.all test, addVal, (error) ->
+        should.not.exist error
+        vals.should.have.length 3
+        vals.should.have.members [1, 2, 3]
+        done()
+
+    it 'callsback for each key', (done) ->
+      keys = []
+      addKey = (key, val, cb) ->
+        keys.push key
+        cb null, yes
+
+      __.all test, addKey, (error) ->
+        should.not.exist error
+        keys.should.have.length 3
+        keys.should.have.members ['foo', 'bar', 'baz']
+        done()
+
+    it 'callsback with the collection', (done) ->
+      colls = []
+      addColl = (key, val, coll, cb) ->
+        colls.push coll
+        cb null, yes
+
+      __.all test, addColl, (error) ->
+        should.not.exist error
+        colls.should.have.length 3
+        colls[0].should.equal test
+        colls[1].should.equal test
+        colls[2].should.equal test
+        done()
+
+    it 'throws if iterator signature is wrong', ->
+      (->
+        __.all test, (->), ->
+      ).should.throw /iterator/
+
+    it 'ignores missing complete callback', (done) ->
+      vals = []
+      addVal = (val, cb) ->
+        vals.push val
+        cb()
+
+      __.all test, addVal
+
+      setImmediate ->
+        vals.should.have.length 3
+        vals.should.have.members [1, 2, 3]
+        done()
+
+    it 'callsback immediately on error', ->
+      fail = (val, cb) ->
+        cb 'oh no!'
+
+      __.all test, fail, (error, result) ->
+        should.exist error
+        error.should.equal 'oh no!'
+        should.not.exist result
+
+    it 'returns false if any is false', ->
+      did = no
+      one = (val, cb) ->
+        return cb null, no if did
+        did = yes
+        cb null, no
+
+      __.all test, one, (error, result) ->
+        should.not.exist error
+        result.should.be.false
+
+    it 'returns true if all are true', ->
+      yep = (val, cb) ->
+        cb null, yes
+
+      __.all test, yep, (error, result) ->
+        should.not.exist error
+        result.should.be.true
+
+    it 'short-circuits', ->
+      count = 0
+      nope = (val, cb) ->
+        count += 1
+        cb null, no
+
+      __.all test, nope, (error, result) ->
+        should.not.exist error
+        count.should.equal 1
 
   describe 'reduce', ->
     it 'something'
@@ -307,10 +491,194 @@ describe 'array', ->
         should.not.exist result
 
   describe 'any', ->
-    it 'something'
+    it 'callsback for each value', (done) ->
+      vals = []
+      addVal = (val, cb) ->
+        vals.push val
+        cb null, no
+
+      __.any test, addVal, (error) ->
+        should.not.exist error
+        vals.should.have.length 3
+        vals.should.have.members [1, 2, 3]
+        done()
+
+    it 'callsback for each key', (done) ->
+      keys = []
+      addKey = (key, val, cb) ->
+        keys.push key
+        cb null, no
+
+      __.any test, addKey, (error) ->
+        should.not.exist error
+        keys.should.have.length 3
+        keys.should.have.members [0, 1, 2]
+        done()
+
+    it 'callsback with the collection', (done) ->
+      colls = []
+      addColl = (key, val, coll, cb) ->
+        colls.push coll
+        cb null, no
+
+      __.any test, addColl, (error) ->
+        should.not.exist error
+        colls.should.have.length 3
+        colls[0].should.equal test
+        colls[1].should.equal test
+        colls[2].should.equal test
+        done()
+
+    it 'throws if iterator signature is wrong', ->
+      (->
+        __.any test, (->), ->
+      ).should.throw /iterator/
+
+    it 'ignores missing complete callback', (done) ->
+      vals = []
+      addVal = (val, cb) ->
+        vals.push val
+        cb()
+
+      __.any test, addVal
+
+      setImmediate ->
+        vals.should.have.length 3
+        vals.should.have.members [1, 2, 3]
+        done()
+
+    it 'callsback immediately on error', ->
+      fail = (val, cb) ->
+        cb 'oh no!'
+
+      __.any test, fail, (error, result) ->
+        should.exist error
+        error.should.equal 'oh no!'
+        should.not.exist result
+
+    it 'returns true if any is true', ->
+      did = no
+      one = (val, cb) ->
+        return cb null, no if did
+        did = yes
+        cb null, yes
+
+      __.any test, one, (error, result) ->
+        should.not.exist error
+        result.should.be.true
+
+    it 'returns false if all are false', ->
+      nope = (val, cb) ->
+        cb null, no
+
+      __.any test, nope, (error, result) ->
+        should.not.exist error
+        result.should.be.false
+
+    it 'short-circuits', ->
+      count = 0
+      yep = (val, cb) ->
+        count += 1
+        cb null, yes
+
+      __.any test, yep, (error, result) ->
+        should.not.exist error
+        count.should.equal 1
 
   describe 'all', ->
-    it 'something'
+    it 'callsback for each value', (done) ->
+      vals = []
+      addVal = (val, cb) ->
+        vals.push val
+        cb null, yes
+
+      __.all test, addVal, (error) ->
+        should.not.exist error
+        vals.should.have.length 3
+        vals.should.have.members [1, 2, 3]
+        done()
+
+    it 'callsback for each key', (done) ->
+      keys = []
+      addKey = (key, val, cb) ->
+        keys.push key
+        cb null, yes
+
+      __.all test, addKey, (error) ->
+        should.not.exist error
+        keys.should.have.length 3
+        keys.should.have.members [0, 1, 2]
+        done()
+
+    it 'callsback with the collection', (done) ->
+      colls = []
+      addColl = (key, val, coll, cb) ->
+        colls.push coll
+        cb null, yes
+
+      __.all test, addColl, (error) ->
+        should.not.exist error
+        colls.should.have.length 3
+        colls[0].should.equal test
+        colls[1].should.equal test
+        colls[2].should.equal test
+        done()
+
+    it 'throws if iterator signature is wrong', ->
+      (->
+        __.all test, (->), ->
+      ).should.throw /iterator/
+
+    it 'ignores missing complete callback', (done) ->
+      vals = []
+      addVal = (val, cb) ->
+        vals.push val
+        cb()
+
+      __.all test, addVal
+
+      setImmediate ->
+        vals.should.have.length 3
+        vals.should.have.members [1, 2, 3]
+        done()
+
+    it 'callsback immediately on error', ->
+      fail = (val, cb) ->
+        cb 'oh no!'
+
+      __.all test, fail, (error, result) ->
+        should.exist error
+        error.should.equal 'oh no!'
+        should.not.exist result
+
+    it 'returns false if any is false', ->
+      did = no
+      one = (val, cb) ->
+        return cb null, no if did
+        did = yes
+        cb null, no
+
+      __.all test, one, (error, result) ->
+        should.not.exist error
+        result.should.be.false
+
+    it 'returns true if all are true', ->
+      yep = (val, cb) ->
+        cb null, yes
+
+      __.all test, yep, (error, result) ->
+        should.not.exist error
+        result.should.be.true
+
+    it 'short-circuits', ->
+      count = 0
+      nope = (val, cb) ->
+        count += 1
+        cb null, no
+
+      __.all test, nope, (error, result) ->
+        should.not.exist error
+        count.should.equal 1
 
   describe 'reduce', ->
     it 'something'

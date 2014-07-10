@@ -119,11 +119,43 @@ the filter immediately fails, calling back with that error.
 
 ### any ###
 
-Not yet implemented.  Docs to come.
+```
+__.any(collection, predicate, [complete])
+
+collection = Array
+           | Object
+predicate  = (value, cb) -> Boolean
+           | (key, value, cb) -> Boolean
+           | (key, value, collection, cb) -> Boolean
+complete   = (error, result) ->
+```
+
+Short-circuiting boolean or (aka `some`).  Callsback `true` as soon as
+any of the predicates callsback `true`.  Callsback `false` if every
+predicate callsback `false`.
+
+Callsback with an error if any predicate callsback in error before one
+callsback `true`.  This means it swallows some errors and not others,
+which may not be desirable.
 
 ### all ###
 
-Not yet implemented.  Docs to come.
+```
+collection = Array
+           | Object
+predicate  = (value, cb) -> Boolean
+           | (key, value, cb) -> Boolean
+           | (key, value, collection, cb) -> Boolean
+complete   = (error, result) ->
+```
+
+Short-circuiting boolean and (aka `every`).  Callsback `false` as soon
+as a single predicate callsback `false`.  Callsback `true` if every
+predicate callsback `true`.
+
+Callsback with an error if any predicate callsback in error before one
+callsback `false`.  This means it swallows some errors and not others,
+which may not be desirable.
 
 ##### ╭╮☲☲☲╭╮ #####
 
