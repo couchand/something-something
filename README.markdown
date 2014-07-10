@@ -40,16 +40,16 @@ Require it in your project and start asynchronizing.
 ```coffeescript
 __ = require 'something-something'
 
-double = (value, cb) -> cb value * 2
-ba_s = (key, value, cb) -> cb /ba./.test key
+double = (value, cb) -> cb null, value * 2
+ba_s = (key, value, cb) -> cb null, /ba./.test key
 
 original =
   foo: 1
   bar: 2
   baz: 3
 
-__.map original, double, (doubled) ->
-  __.filter doubled, ba_s, (result) ->
+__.map original, double, (error, doubled) ->
+  __.filter doubled, ba_s, (error, result) ->
     assert Object.keys(result).length is 2
     assert result.bar is 4
     assert result.baz is 6
@@ -80,7 +80,7 @@ collection = Array
 iterator = (value, cb) -> result
          | (key, value, cb) -> result
          | (key, value, collection, cb) -> result
-complete = (results) ->
+complete = (error, results) ->
 ```
 
 Standard `map` function, known in some circles as `collect`.  The
@@ -105,7 +105,7 @@ collection = Array
 predicate = (value, cb) -> Boolean
          | (key, value, cb) -> Boolean
          | (key, value, collection, cb) -> Boolean
-complete = (results) ->
+complete = (error, results) ->
 ```
 
 Standard `filter` function, also known as `select`.  The predicate

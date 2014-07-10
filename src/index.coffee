@@ -19,7 +19,7 @@ each = (collection, iterator, complete, convert) ->
   length = keys.length
   count = 0
 
-  cb = (key) -> (value) ->
+  cb = (key) -> (error, value) ->
     convert key, value
     count += 1
     complete() if complete and count is length
@@ -38,14 +38,14 @@ each = (collection, iterator, complete, convert) ->
 map = (collection, iterator, complete) ->
   result = accumulator collection
   each collection, iterator,
-    -> complete result if complete
+    -> complete null, result if complete
     (key, value) ->
       result[key] = value
 
 filter = (collection, iterator, complete) ->
   result = accumulator collection
   each collection, iterator,
-    -> complete result if complete
+    -> complete null, result if complete
     (key, value) ->
       if isArray collection
         result.push collection[key] if value

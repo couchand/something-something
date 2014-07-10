@@ -1,6 +1,6 @@
 # unit tests
 
-require './helper'
+{should} = require './helper'
 
 __ = require '../src'
 
@@ -26,7 +26,8 @@ describe 'object', ->
         vals.push val
         cb()
 
-      __.map test, addVal, ->
+      __.map test, addVal, (error) ->
+        should.not.exist error
         vals.should.have.length 3
         vals.should.have.members [1, 2, 3]
         done()
@@ -37,7 +38,8 @@ describe 'object', ->
         keys.push key
         cb()
 
-      __.map test, addKey, ->
+      __.map test, addKey, (error) ->
+        should.not.exist error
         keys.should.have.length 3
         keys.should.have.members ['foo', 'bar', 'baz']
         done()
@@ -48,7 +50,8 @@ describe 'object', ->
         colls.push coll
         cb()
 
-      __.map test, addColl, ->
+      __.map test, addColl, (error) ->
+        should.not.exist error
         colls.should.have.length 3
         colls[0].should.equal test
         colls[1].should.equal test
@@ -75,9 +78,10 @@ describe 'object', ->
 
     it 'collects the results', (done) ->
       double = (val, cb) ->
-        cb val * 2
+        cb null, val * 2
 
-      __.map test, double, (result) ->
+      __.map test, double, (error, result) ->
+        should.not.exist error
         result.foo.should.equal 2
         result.bar.should.equal 4
         result.baz.should.equal 6
@@ -90,7 +94,8 @@ describe 'object', ->
         vals.push val
         cb()
 
-      __.filter test, addVal, ->
+      __.filter test, addVal, (error) ->
+        should.not.exist error
         vals.should.have.length 3
         vals.should.have.members [1, 2, 3]
         done()
@@ -101,7 +106,8 @@ describe 'object', ->
         keys.push key
         cb()
 
-      __.filter test, addKey, ->
+      __.filter test, addKey, (error) ->
+        should.not.exist error
         keys.should.have.length 3
         keys.should.have.members ['foo', 'bar', 'baz']
         done()
@@ -112,7 +118,8 @@ describe 'object', ->
         colls.push coll
         cb()
 
-      __.filter test, addColl, ->
+      __.filter test, addColl, (error) ->
+        should.not.exist error
         colls.should.have.length 3
         colls[0].should.equal test
         colls[1].should.equal test
@@ -126,9 +133,10 @@ describe 'object', ->
 
     it 'collects the results', (done) ->
       odd = (val, cb) ->
-        cb val % 2
+        cb null, val % 2
 
-      __.filter test, odd, (result) ->
+      __.filter test, odd, (error, result) ->
+        should.not.exist error
         result.should.have.property 'foo'
         result.foo.should.equal 1
         result.should.not.have.property 'bar'
@@ -159,7 +167,8 @@ describe 'array', ->
         vals.push val
         cb()
 
-      __.map test, addVal, ->
+      __.map test, addVal, (error) ->
+        should.not.exist error
         vals.should.have.length 3
         vals.should.have.members [1, 2, 3]
         done()
@@ -170,7 +179,8 @@ describe 'array', ->
         keys.push key
         cb()
 
-      __.map test, addKey, ->
+      __.map test, addKey, (error) ->
+        should.not.exist error
         keys.should.have.length 3
         keys.should.have.members [0, 1, 2]
         done()
@@ -181,7 +191,8 @@ describe 'array', ->
         colls.push coll
         cb()
 
-      __.map test, addColl, ->
+      __.map test, addColl, (error) ->
+        should.not.exist error
         colls.should.have.length 3
         colls[0].should.equal test
         colls[1].should.equal test
@@ -195,9 +206,10 @@ describe 'array', ->
 
     it 'collects the results', (done) ->
       double = (val, cb) ->
-        cb val * 2
+        cb null, val * 2
 
-      __.map test, double, (result) ->
+      __.map test, double, (error, result) ->
+        should.not.exist error
         result.should.have.length 3
         result[0].should.equal 2
         result[1].should.equal 4
@@ -211,7 +223,8 @@ describe 'array', ->
         vals.push val
         cb()
 
-      __.filter test, addVal, ->
+      __.filter test, addVal, (error) ->
+        should.not.exist error
         vals.should.have.length 3
         vals.should.have.members [1, 2, 3]
         done()
@@ -222,7 +235,8 @@ describe 'array', ->
         keys.push key
         cb()
 
-      __.filter test, addKey, ->
+      __.filter test, addKey, (error) ->
+        should.not.exist error
         keys.should.have.length 3
         keys.should.have.members [0, 1, 2]
         done()
@@ -233,7 +247,8 @@ describe 'array', ->
         colls.push coll
         cb()
 
-      __.filter test, addColl, ->
+      __.filter test, addColl, (error) ->
+        should.not.exist error
         colls.should.have.length 3
         colls[0].should.equal test
         colls[1].should.equal test
@@ -247,9 +262,10 @@ describe 'array', ->
 
     it 'collects the results', (done) ->
       odd = (val, cb) ->
-        cb val % 2
+        cb null, val % 2
 
-      __.filter test, odd, (result) ->
+      __.filter test, odd, (error, result) ->
+        should.not.exist error
         result.should.have.length 2
         result.should.have.members [1, 3]
         done()

@@ -1,4 +1,5 @@
 # test helpers
 
 chai = require 'chai'
-chai.should()
+should = chai.should()
+module.exports = {should}
