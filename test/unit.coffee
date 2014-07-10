@@ -127,6 +127,15 @@ describe 'object', ->
         result.baz.should.equal 3
         done()
 
+  describe 'any', ->
+    it 'something'
+
+  describe 'all', ->
+    it 'something'
+
+  describe 'reduce', ->
+    it 'something'
+
 describe 'array', ->
   test = beforeEach -> test = [
     1
@@ -235,3 +244,12 @@ describe 'array', ->
         result.should.have.length 2
         result.should.have.members [1, 3]
         done()
+
+  describe 'any', ->
+    it 'something'
+
+  describe 'all', ->
+    it 'something'
+
+  describe 'reduce', ->
+    it 'something'
