@@ -45,6 +45,9 @@ filter = (collection, iterator, complete) ->
   each collection, iterator,
     -> complete result if complete
     (key, value) ->
-      result[key] = collection[key] if value
+      if isArray collection
+        result.push collection[key] if value
+      else
+        result[key] = collection[key] if value
 
 module.exports = {map, filter}
