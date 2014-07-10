@@ -16,13 +16,21 @@ each = (collection, iterator, complete, convert) ->
   else
     Object.keys collection
 
+  failed = no
+  fail = (error) ->
+    failed = yes
+    complete error
+
   length = keys.length
   count = 0
 
   cb = (key) -> (error, value) ->
+    return if failed
+    return fail error if error
+
     convert key, value
     count += 1
-    complete() if complete and count is length
+    complete() if count is length
 
   iterate = switch iterator.length
     when 2 then (key, value) ->
@@ -37,20 +45,34 @@ each = (collection, iterator, complete, convert) ->
 
 map = (collection, iterator, complete) ->
   result = accumulator collection
-  each collection, iterator,
-    -> complete null, result if complete
-    (key, value) ->
-      result[key] = value
+
+  cb = if complete
+    (error) ->
+      if error then complete(error) else complete(null, result)
+  else
+    ->
+
+  convert = (key, value) ->
+    result[key] = value
+
+  each collection, iterator, cb, convert
 
 filter = (collection, iterator, complete) ->
   result = accumulator collection
-  each collection, iterator,
-    -> complete null, result if complete
-    (key, value) ->
-      if isArray collection
-        result.push collection[key] if value
-      else
-        result[key] = collection[key] if value
+
+  cb = if complete
+    (error) ->
+      if error then complete(error) else complete(null, result)
+  else
+    ->
+
+  convert = (key, value) ->
+    if isArray collection
+      result.push collection[key] if value
+    else
+      result[key] = collection[key] if value
+
+  each collection, iterator, cb, convert
 
 module.exports = {
   map

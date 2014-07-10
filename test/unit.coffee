@@ -87,6 +87,15 @@ describe 'object', ->
         result.baz.should.equal 6
         done()
 
+    it 'callsback immediately on error', ->
+      fail = (val, cb) ->
+        cb 'oh no!'
+
+      __.map test, fail, (error, result) ->
+        should.exist error
+        error.should.equal 'oh no!'
+        should.not.exist result
+
   describe 'filter', ->
     it 'callsback for each value', (done) ->
       vals = []
@@ -143,6 +152,15 @@ describe 'object', ->
         result.should.have.property 'baz'
         result.baz.should.equal 3
         done()
+
+    it 'callsback immediately on error', ->
+      fail = (val, cb) ->
+        cb 'oh no!'
+
+      __.filter test, fail, (error, result) ->
+        should.exist error
+        error.should.equal 'oh no!'
+        should.not.exist result
 
   describe 'any', ->
     it 'something'
@@ -216,6 +234,15 @@ describe 'array', ->
         result[2].should.equal 6
         done()
 
+    it 'callsback immediately on error', ->
+      fail = (val, cb) ->
+        cb 'oh no!'
+
+      __.map test, fail, (error, result) ->
+        should.exist error
+        error.should.equal 'oh no!'
+        should.not.exist result
+
   describe 'filter', ->
     it 'callsback for each value', (done) ->
       vals = []
@@ -269,6 +296,15 @@ describe 'array', ->
         result.should.have.length 2
         result.should.have.members [1, 3]
         done()
+
+    it 'callsback immediately on error', ->
+      fail = (val, cb) ->
+        cb 'oh no!'
+
+      __.filter test, fail, (error, result) ->
+        should.exist error
+        error.should.equal 'oh no!'
+        should.not.exist result
 
   describe 'any', ->
     it 'something'
