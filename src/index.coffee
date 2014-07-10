@@ -50,4 +50,9 @@ filter = (collection, iterator, complete) ->
       else
         result[key] = collection[key] if value
 
-module.exports = {map, filter}
+module.exports = {
+  map
+  collect: map
+  filter
+  select: filter
+}

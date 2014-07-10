@@ -4,6 +4,15 @@ require './helper'
 
 __ = require '../src'
 
+describe 'aliases', ->
+  describe 'collect', ->
+    it 'is an alias for map', ->
+      __.collect.should.equal __.map
+
+  describe 'select', ->
+    it 'is an alias for filter', ->
+      __.select.should.equal __.filter
+
 describe 'object', ->
   test = beforeEach -> test =
     foo: 1
