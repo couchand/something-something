@@ -1,0 +1,19 @@
+{
+  "name": "something-something",
+  "version": "0.0.1",
+  "description": "a little asynchronous functional programming library.",
+  "author": "Andrew Couch <something-something@andrewcou.ch>",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "isarray": "0.0.1"
+  },
+  "devDependencies": {
+    "chai": "~1.9.1",
+    "coffee-script": "~1.7.1",
+    "mocha": "~1.20.1"
+  }
+}
