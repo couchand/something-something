@@ -1,6 +1,8 @@
 # async collection utilities
 
-isArray = require 'isarray'
+# isArray = require 'isarray'
+isArray = Array.isArray or (arr) ->
+  Object.prototype.toString.call(arr) is '[object Array]'
 
 id = (k, v, c) -> v
 collect = (k, v, c) -> if v then c[k]
