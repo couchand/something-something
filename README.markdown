@@ -37,7 +37,7 @@ bower install something-something
 Require it in your project and start asynchronizing.
 
 ```coffeescript
-_ = require 'something-something'
+__ = require 'something-something'
 
 double = (value, cb) -> cb value * 2
 ba_s = (key, value, cb) -> cb /ba./.test key
@@ -47,8 +47,8 @@ original =
   bar: 2
   baz: 3
 
-_.map original, double, (doubled) ->
-  _.filter doubled, ba_s, (result) ->
+__.map original, double, (doubled) ->
+  __.filter doubled, ba_s, (result) ->
     assert Object.keys(result).length is 2
     assert result.bar is 4
     assert result.baz is 6
@@ -72,7 +72,7 @@ All methods work equally well for arrays and objects.
 ### map ###
 
 ```
-map(collection, iterator, [complete])
+__.map(collection, iterator, [complete])
 
 collection = Array
            | Object
@@ -97,7 +97,7 @@ Not yet implemented.  Docs to come.
 ### filter ###
 
 ```
-filter(collection, predicate, [complete])
+__.filter(collection, predicate, [complete])
 
 collection = Array
            | Object
