@@ -43,14 +43,13 @@ each = (collection, iterator, complete, convert) ->
 
   (iterate key, collection[key] for key in keys)
 
+handle = (complete, result) ->
+  return (->) unless complete?
+  (error) -> if error then complete(error) else complete(null, result)
+
 map = (collection, iterator, complete) ->
   result = accumulator collection
-
-  cb = if complete
-    (error) ->
-      if error then complete(error) else complete(null, result)
-  else
-    ->
+  cb = handle complete, result
 
   convert = (key, value) ->
     result[key] = value
@@ -59,12 +58,7 @@ map = (collection, iterator, complete) ->
 
 filter = (collection, iterator, complete) ->
   result = accumulator collection
-
-  cb = if complete
-    (error) ->
-      if error then complete(error) else complete(null, result)
-  else
-    ->
+  cb = handle complete, result
 
   convert = (key, value) ->
     if isArray collection
