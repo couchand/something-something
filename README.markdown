@@ -16,12 +16,13 @@ There are plenty of collections libraries out there (think
 [underscore][0], [lodash][1], etc) and plenty of asynchronous ones
 ([async][2] comes to mind), but none of them seem to support
 asynchronous mapping over plain old JavaScript objects.  So I wrote
-this for that use-case, and while I was at it I just made it general.
+this for that use-case, and while I was at it generalized it to
+handle both objects and arrays.
 
 how?
 ----
 
-Use the package manager or your choice to install.  We support
+Use the package manager of your choice to install.  We support
 
 ```sh
 # npm
