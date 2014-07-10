@@ -1,0 +1,29 @@
+{
+  "name": "something-something",
+  "version": "0.0.1",
+  "description": "a little asynchronous functional programming library.",
+  "authors": [
+    "Andrew Couch <something-something@andrewcou.ch>"
+  ],
+  "homepage": "https://github.com/couchand/something-something",
+  "license": "MIT",
+  "keywords": [
+    "async",
+    "asynchronous",
+    "functional",
+    "collection",
+    "map",
+    "reduce",
+    "filter"
+  ],
+  "main": "lib/index.js",
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
+}
