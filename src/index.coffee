@@ -69,23 +69,27 @@ filter = (collection, iterator, complete) ->
   each collection, iterator, cb, convert
 
 any = (collection, iterator, complete) ->
+  finished = no
   finish = handle complete, no
-  cb = (error) -> finish error
+  cb = (error) -> finish error unless finished
 
   convert = (key, value) ->
+    return if finished
     if value
-      finish = ->
+      finished = yes
       complete(null, yes) if complete
 
   each collection, iterator, cb, convert
 
 all = (collection, iterator, complete) ->
+  finished = no
   finish = handle complete, yes
-  cb = (error) -> finish error
+  cb = (error) -> finish error unless finished
 
   convert = (key, value) ->
+    return if finished
     unless value
-      finish = ->
+      finished = yes
       complete(null, no) if complete
 
   each collection, iterator, cb, convert
