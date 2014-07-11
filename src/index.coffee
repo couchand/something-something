@@ -100,5 +100,7 @@ module.exports = {
   filter
   select: filter
   any
+  some: any
   all
+  every: all
 }

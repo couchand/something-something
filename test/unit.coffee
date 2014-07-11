@@ -13,6 +13,14 @@ describe 'aliases', ->
     it 'is an alias for filter', ->
       __.select.should.equal __.filter
 
+  describe 'some', ->
+    it 'is an alias for any', ->
+      __.some.should.equal __.any
+
+  describe 'every', ->
+    it 'is an alias for all', ->
+      __.every.should.equal __.all
+
 describe 'object', ->
   test = beforeEach -> test =
     foo: 1
