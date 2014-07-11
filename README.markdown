@@ -63,10 +63,10 @@ what?
 The standard functional collections methods are here.
 
   * [map](#map)
-  * [reduce](#reduce)
   * [filter](#filter)
   * [any](#any)
   * [all](#all)
+  * [what, no reduce?](#what-no-reduce)
 
 All methods work equally well for arrays and objects.
 
@@ -91,10 +91,6 @@ fancy business with `arguments` here.
 The complete callback is called with the `results` collection once
 every iteration is complete.  If any iteration callsback with an error
 the map immediately fails, calling back with that error.
-
-### reduce ###
-
-Not yet implemented.  Docs to come.
 
 ### filter ###
 
@@ -156,6 +152,13 @@ predicate callsback `true`.
 Callsback with an error if any predicate callsback in error before one
 callsback `false`.  This means it swallows some errors and not others,
 which may not be desirable.
+
+### what, no reduce? ###
+
+This library is about eagerly evaluating a sequence of asynchronous
+callbacks massively parallel.  Reduce is by nature a series algorithm.
+If you think there's a good way to write reduce in the same style as
+the other methods please do submit a pull request.
 
 ##### ╭╮☲☲☲╭╮ #####
 

@@ -360,9 +360,6 @@ describe 'object', ->
         should.not.exist error
         count.should.equal 1
 
-  describe 'reduce', ->
-    it 'something'
-
 describe 'array', ->
   test = beforeEach -> test = [
     1
@@ -687,6 +684,3 @@ describe 'array', ->
       __.all test, nope, (error, result) ->
         should.not.exist error
         count.should.equal 1
-
-  describe 'reduce', ->
-    it 'something'
