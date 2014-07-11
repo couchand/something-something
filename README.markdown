@@ -77,10 +77,10 @@ __.map(collection, iterator, [complete])
 
 collection = Array
            | Object
-iterator = (value, cb) -> result
-         | (key, value, cb) -> result
-         | (key, value, collection, cb) -> result
-complete = (error, results) ->
+iterator   = (value, cb) -> result
+           | (key, value, cb) -> result
+           | (key, value, collection, cb) -> result
+complete   = (error, results) ->
 ```
 
 Standard `map` function, known in some circles as `collect`.  The
@@ -103,10 +103,10 @@ __.filter(collection, predicate, [complete])
 
 collection = Array
            | Object
-predicate = (value, cb) -> Boolean
-         | (key, value, cb) -> Boolean
-         | (key, value, collection, cb) -> Boolean
-complete = (error, results) ->
+predicate  = (value, cb) -> Boolean
+           | (key, value, cb) -> Boolean
+           | (key, value, collection, cb) -> Boolean
+complete   = (error, results) ->
 ```
 
 Standard `filter` function, also known as `select`.  The predicate
