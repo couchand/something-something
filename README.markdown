@@ -22,17 +22,12 @@ handle both objects and arrays.
 how?
 ----
 
-Use the package manager of your choice to install.  We support
+Use NPM to install.  Other package managers welcome, please submit a
+pull request to support your favorite.
 
 ```sh
 # npm
 npm install --save something-something
-
-# component
-component install couchand/something-something
-
-# bower
-bower install something-something
 ```
 
 Require it in your project and start asynchronizing.
